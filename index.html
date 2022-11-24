@@ -9,10 +9,46 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 
-<body onload="onInit()">
-    <h1>MINESWEEPER</h1>
-    <h2>Score: <span>0</span></h2>
-    <div class="game-container"></div>
+<body class="light" onload="onInit()">
+
+
+    <div class="game-container">
+        <h1>MINESWEEPER</h1>
+
+        <div class="game-menu">
+            <div class="time">TIME: <span class="game-timer"></span></div>
+            <div onclick="onInit()" class="game-button">2</div>
+            <div class="game-lives"></div>
+
+        </div>
+
+        <div class="game-options">
+            <button onclick="setLevel(1)">EASY</button>
+            <button onclick="setLevel(2)">MEDIUM</button>
+            <button onclick="setLevel(3)">HARD</button>
+        </div>
+        <div class="game-addons">
+            <div>HINTS: <span class="hints"></span></div>
+
+        </div>
+        <div class="game-modal">GAMEOVER<div class="gameover-result"></div></div>
+        <div class="ingame-modal"></div>
+        <div class="game-board"></div>
+        <div class="leaderboard">LEADERBOARDS:
+            <div>EASY: <span class="easy-record"></span></div>
+            <div>MEDIUM: <span class="medium-record"></span></div>
+            <div>HARD: <span class="hard-record"></span></div>
+        </div>
+    </div>
+
+    <section class="dark-mode">
+        <label></span>Dark Mode</label>
+        <label class="switch">
+            <input onclick="toggleDarkMode()" id="dark-mode-switch" type="checkbox">
+        </label>
+    </section>
+
+    <footer>DESIGNED BY: KARAM ISA</footer>
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
 </body>
