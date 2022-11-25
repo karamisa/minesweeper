@@ -284,7 +284,7 @@ function renderGameButton(emoji) {
 
 //WHEN HINT IS CLICKED THIS FUNCTION IS CALLED
 function onClickHint(elCell) {
-    if (gGame.shownCount > 0) {
+    if (gGame.shownCount > 0 && gGame.megaHintPhase===0) {
         elCell.remove()
         gGame.hintIsOn = true
     }
@@ -327,7 +327,6 @@ function peekCellAndNeighborhood(i, j) {
 
 //TOGGLES DARK MODE SWITCH
 function toggleDarkMode() {
-    console.log('here bitch')
     if (document.querySelector("body.light") === null) {
         document.querySelector('body').classList.replace('dark', 'light')
     } else {
@@ -384,18 +383,19 @@ function displayHighScore() {
 
 //FUNCTION CALLED WHEN SAFE CLICK BUTTON IS PRESSED.
 function safeClick() {
+    if (gGame.shownCount>0){
     if (gGame.safeClicks > 0) {
         gGame.safeClicks--
         const elSafeClicksRemaining = document.querySelector('.safe-clicks-remaining')
         elSafeClicksRemaining.innerHTML = gGame.safeClicks
         const safeCellCoords = getRandSafeSpot()
-        console.log(safeCellCoords)
         const elSafeCell = document.querySelector(`.cell-${safeCellCoords[0]}-${safeCellCoords[1]}`)
         elSafeCell.classList.add("safe-cell")
         setTimeout(() => {
             elSafeCell.classList.remove("safe-cell")
         }, 1000)
     }
+}
 }
 
 //RETRUNS ARRAY [i,j] OF RANDOM UNSHOWN CELL THAT IS NOT A MINE
@@ -414,8 +414,10 @@ function getRandSafeSpot() {
 }
 
 function onClickMegaHint(elCell) {
+    if (gGame.shownCount>0){
     elCell.remove()
     gGame.megaHintPhase = 1
+}
 }
 
 function megaHintClick(elCell, i, j) {
@@ -436,16 +438,17 @@ function megaHintClick(elCell, i, j) {
                     } else {
                         cellContent = cell.minesAroundCount
                     }
-                }
+                
                 const elCell = document.querySelector(`.cell-${w}-${z}`)
                 elCell.innerHTML = cellContent
                 elCell.classList.add("peeked")
-
+                
                 setTimeout(() => {
                     elCell.innerHTML = ''
                     elCell.classList.remove("peeked")
                 }, 2000)
             }
+        }
         gGame.megaHintPhase = 0
 
     }
